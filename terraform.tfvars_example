@@ -1,0 +1,67 @@
+patch_deployment_id = "patch-deploy"
+
+instance_filter = {
+  all                    = true
+  instance_name_prefixes = null
+  zones                  = null
+  group_labels = {
+    labels = {}
+  }
+}
+
+patch_config = {
+  reboot_config = "ALWAYS"
+  apt = {
+    type     = "DIST"
+    excludes = null
+  }
+  windows_update = {
+    classifications = []
+  }
+  pre_step = {
+    linux_exec_step_config = {
+        allowed_success_codes = []
+        interpreter = ""
+        gcs_object = {
+            bucket            = ""
+            object            = ""
+            generation_number = ""
+        }
+    }
+    windows_exec_step_config = {
+        allowed_success_codes = []
+        interpreter = ""
+        gcs_object = {
+            bucket            = ""
+            object            = ""
+            generation_number = ""
+        }
+    }
+  }
+}
+
+duration = "20s"
+
+recurring_schedule = {
+  time_zone = {
+    id = "America/New_York"
+  }
+  time_of_day = {
+    hours   = 0
+    minutes = 30
+    seconds = 30
+    nanos   = 0
+  }
+  monthly = {
+    week_day_of_month = {
+      week_ordinal = -1
+      day_of_week  = "MONDAY"
+    }
+  }
+}
+rollout = {
+    mode = "ZONE_BY_ZONE"
+    disruption_budget = {
+        percentage = 25
+    }
+}
